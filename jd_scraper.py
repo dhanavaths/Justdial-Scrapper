@@ -55,8 +55,8 @@ fields = ['Name', 'Phone', 'Rating', 'Rating Count', 'Address', 'Location']
 # Write fields first
 #csvwriter.writerow(dict((fn,fn) for fn in fields))
 
-_base_url = raw_input("Enter Base Url: ")
-_file_name = raw_input("Enter Output File Name: ")
+_base_url = input("Enter Base Url: ")
+_file_name = input("Enter Output File Name: ")
 
 out_file = open(_file_name,'w')
 csvwriter = csv.DictWriter(out_file, delimiter=',', fieldnames=fields)
