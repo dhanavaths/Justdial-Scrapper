@@ -1,3 +1,4 @@
+import sys
 from bs4 import BeautifulSoup
 import urllib
 import csv
@@ -45,16 +46,20 @@ def get_location(body):
 	
 	return latitutde + ", " + longitude
 
-page_number = 1
+page_number = int(sys.argv[1])
 service_count = 1
 
 
 fields = ['Name', 'Phone', 'Rating', 'Rating Count', 'Address', 'Location']
-out_file = open('Readymade-Garment-Retailers_agra.csv','w')
-csvwriter = csv.DictWriter(out_file, delimiter=',', fieldnames=fields)
 
 # Write fields first
 #csvwriter.writerow(dict((fn,fn) for fn in fields))
+
+_base_url = raw_input("Enter Base Url: ")
+_file_name = raw_input("Enter Output File Name: ")
+
+out_file = open(_file_name,'w')
+csvwriter = csv.DictWriter(out_file, delimiter=',', fieldnames=fields)
 
 while True:
 
@@ -62,7 +67,7 @@ while True:
 	if page_number > 50:
 		break
 
-	url="https://www.justdial.com/Agra/Readymade-Garment-Retailers/nct-10401947/page-%s" % (page_number)
+	url="%s/page-%s" % (_base_url, page_number)
 	req = urllib.request.Request(url, headers={'User-Agent' : "Magic Browser"}) 
 	page = urllib.request.urlopen( req )
 	# page=urllib2.urlopen(url)
